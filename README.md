@@ -98,6 +98,11 @@ You can also create it using CMD:
 (echo sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk)>android\local.properties
 ```
 
+You can verify using:
+```bat
+type android\local.properties
+```
+
 Do not upload `android/local.properties` to GitHub because the SDK path is different for every computer.
 
 ### 4. Generate React Native Codegen files
