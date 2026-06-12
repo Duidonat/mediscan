@@ -62,21 +62,105 @@ npm install
 
 ## Android Setup
 
-Create the Android native folder:
+Before running the Android app, make sure Android Studio and Android SDK are installed.
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Generate the Android native folder
 
 ```bash
 npx expo prebuild --clean --platform android
 ```
 
-Create `android/local.properties` and add your Android SDK path.
+### 3. Add Android SDK path
+
+Create a file named:
+
+```text
+android/local.properties
+```
+
+Then add your Android SDK path.
 
 For Windows example:
 
 ```properties
+sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk
+```
+
+You can also create it using CMD:
+
+```bat
 (echo sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk)>android\local.properties
 ```
 
-For this project, do not upload `android/local.properties` to GitHub because it is different for every computer.
+Do not upload `android/local.properties` to GitHub because the SDK path is different for every computer.
+
+### 4. Generate React Native Codegen files
+
+QVAC and BareKit use native React Native modules. Before building, generate the required Codegen/CMake files:
+
+```bat
+cd android
+gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks
+cd ..
+```
+
+After running Codegen, check if these folders exist:
+
+```bat
+dir "node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni"
+dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni"
+```
+
+Both folders should contain a `CMakeLists.txt` file.
+
+If they do not exist, run the available Codegen tasks manually:
+
+```bat
+cd android
+gradlew.bat tasks --all | findstr /i codegen
+```
+
+Then run the matching tasks shown in the terminal. Common examples are:
+
+```bat
+gradlew.bat :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema --rerun-tasks
+gradlew.bat :react-native-bare-kit:generateCodegenArtifactsFromSchema --rerun-tasks
+cd ..
+```
+
+### 5. Connect your Android phone
+
+Enable USB debugging on your physical Android device, then check if ADB detects it:
+
+```bat
+adb devices
+```
+
+Expected result:
+
+```text
+YOUR_DEVICE_ID    device
+```
+
+QVAC should be tested on a physical Android device. Emulator testing may not work properly for QVAC native inference.
+
+### 6. Run the app
+
+```bash
+npx expo run:android --device
+```
+
+If `npx` hangs, use the local Expo CLI instead:
+
+```bat
+node node_modules\expo\bin\cli run:android --device
+```
 
 ## Running Without QVAC
 
@@ -90,7 +174,7 @@ npx expo run:android --device
 
 Make sure your physical Android phone is connected and detected:
 
-```bash
+```bat
 adb devices
 ```
 
@@ -141,6 +225,27 @@ Unexpected angle 0 received with rotationAngles.
 Angles must be one of [90, 180, 270].
 ```
 
+## Testing QVAC
+
+Use a clear image with large medicine text, such as:
+
+```text
+PARACETAMOL 500 mg TABLET
+EXP 08/2026
+```
+
+A successful scan should show extracted OCR text and should not show:
+
+```text
+AI path: qvac-unavailable
+```
+
+A successful QVAC run should show something like:
+
+```text
+AI path: real-qvac
+```
+
 ## Common Issues
 
 ### `AI path: qvac-unavailable`
@@ -157,38 +262,55 @@ QVAC did not initialize correctly. Check for:
 
 This means the native BareKit layer failed before QVAC OCR started. Rebuild the app cleanly and make sure the correct QVAC/BareKit dependencies are installed.
 
-### Missing `CMakeLists.txt` in codegen folder
+### Missing `CMakeLists.txt` in Codegen Folder
 
-Run React Native codegen tasks again, then rebuild.
+This means React Native Codegen did not generate the required native CMake files.
 
-Example:
+Run:
 
-```bash
+```bat
 cd android
 gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks
 cd ..
 ```
 
-Then check if these folders exist:
+Then check:
+
+```bat
+dir "node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni"
+dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni"
+```
+
+Both folders should contain `CMakeLists.txt`.
+
+### `Unexpected angle 0 received with rotationAngles`
+
+Remove `0` from QVAC OCR rotation angles.
+
+Use:
+
+```ts
+rotationAngles: [90, 180, 270]
+```
+
+Do not use:
+
+```ts
+rotationAngles: [0, 90, 180, 270]
+```
+
+### Android SDK Location Not Found
+
+Create `android/local.properties`:
+
+```bat
+(echo sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk)>android\local.properties
+```
+
+Then run the app again:
 
 ```bash
-node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni
-node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni
-```
-
-## Testing QVAC
-
-Use a clear image with large medicine text, such as:
-
-```text
-PARACETAMOL 500 mg TABLET
-EXP 08/2026
-```
-
-A successful scan should show extracted OCR text and should not show:
-
-```text
-AI path: qvac-unavailable
+npx expo run:android --device
 ```
 
 ## Project Purpose
