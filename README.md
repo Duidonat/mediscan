@@ -111,6 +111,8 @@ QVAC and BareKit use native React Native modules. Before building, generate the 
 
 ```bat
 cd android
+gradlew.bat :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema --rerun-tasks
+gradlew.bat :react-native-bare-kit:generateCodegenArtifactsFromSchema --rerun-tasks
 gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks
 cd ..
 ```
@@ -118,25 +120,8 @@ cd ..
 After running Codegen, check if these folders exist:
 
 ```bat
-dir node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni
-dir node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni
-```
-
-Both folders should contain a `CMakeLists.txt` file.
-
-If they do not exist, run the available Codegen tasks manually:
-
-```bat
-cd android
-gradlew.bat tasks --all | findstr /i codegen
-```
-
-Then run the matching tasks shown in the terminal. Common examples are:
-
-```bat
-gradlew.bat :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema --rerun-tasks
-gradlew.bat :react-native-bare-kit:generateCodegenArtifactsFromSchema --rerun-tasks
-cd ..
+dir "node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni"
+dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni"
 ```
 
 ### 5. Connect your Android phone
