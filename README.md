@@ -118,8 +118,8 @@ cd ..
 After running Codegen, check if these folders exist:
 
 ```bat
-dir "node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni"
-dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni"
+dir node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni
+dir node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni
 ```
 
 Both folders should contain a `CMakeLists.txt` file.
