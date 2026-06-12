@@ -172,8 +172,8 @@ cd ..
 Then check if these folders exist:
 
 ```bash
-node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni
-node_modules/react-native-bare-kit/android/build/generated/source/codegen/jni
+node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni
+node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni
 ```
 
 ## Testing QVAC
