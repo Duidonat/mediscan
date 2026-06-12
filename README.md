@@ -73,7 +73,7 @@ Create `android/local.properties` and add your Android SDK path.
 For Windows example:
 
 ```properties
-sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk
+(echo sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk)>android\local.properties
 ```
 
 For this project, do not upload `android/local.properties` to GitHub because it is different for every computer.
