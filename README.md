@@ -84,14 +84,6 @@ Create a file named:
 android/local.properties
 ```
 
-Then add your Android SDK path.
-
-For Windows example:
-
-```properties
-sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk
-```
-
 You can also create it using CMD:
 
 ```bat
@@ -121,20 +113,6 @@ dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\j
 
 Both folders should contain a `CMakeLists.txt` file.
 
-If they do not exist, run the available Codegen tasks manually:
-
-```bat
-cd android
-gradlew.bat tasks --all | findstr /i codegen
-```
-
-Then run the matching tasks shown in the terminal. Common examples are:
-
-```bat
-gradlew.bat :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema --rerun-tasks
-gradlew.bat :react-native-bare-kit:generateCodegenArtifactsFromSchema --rerun-tasks
-cd ..
-```
 
 ### 5. Connect your Android phone
 
@@ -246,73 +224,6 @@ A successful QVAC run should show something like:
 
 ```text
 AI path: real-qvac
-```
-
-## Common Issues
-
-### `AI path: qvac-unavailable`
-
-QVAC did not initialize correctly. Check for:
-
-* Missing QVAC native bundle
-* BareKit initialization error
-* Incorrect Expo prebuild
-* Wrong dependency versions
-* Running on emulator instead of physical phone
-
-### `BareKit NullPointerException`
-
-This means the native BareKit layer failed before QVAC OCR started. Rebuild the app cleanly and make sure the correct QVAC/BareKit dependencies are installed.
-
-### Missing `CMakeLists.txt` in Codegen Folder
-
-This means React Native Codegen did not generate the required native CMake files.
-
-Run:
-
-```bat
-cd android
-gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks
-cd ..
-```
-
-Then check:
-
-```bat
-dir "node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni"
-dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni"
-```
-
-Both folders should contain `CMakeLists.txt`.
-
-### `Unexpected angle 0 received with rotationAngles`
-
-Remove `0` from QVAC OCR rotation angles.
-
-Use:
-
-```ts
-rotationAngles: [90, 180, 270]
-```
-
-Do not use:
-
-```ts
-rotationAngles: [0, 90, 180, 270]
-```
-
-### Android SDK Location Not Found
-
-Create `android/local.properties`:
-
-```bat
-(echo sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk)>android\local.properties
-```
-
-Then run the app again:
-
-```bash
-npx expo run:android --device
 ```
 
 ## Project Purpose
