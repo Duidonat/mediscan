@@ -105,8 +105,10 @@ Do not upload `android/local.properties` to GitHub because the SDK path is diffe
 QVAC and BareKit use native React Native modules. Before building, generate the required Codegen/CMake files:
 
 ```bat
-cd android
-gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks
+cd android 
+gradlew.bat :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema --rerun-tasks 
+gradlew.bat :react-native-bare-kit:generateCodegenArtifactsFromSchema --rerun-tasks
+gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks 
 cd ..
 ```
 
