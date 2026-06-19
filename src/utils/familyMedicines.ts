@@ -11,6 +11,17 @@ export function assignedMemberName(meta: MedicineMeta): string {
   return meta.assignedTo?.trim() || 'Me';
 }
 
+export function assignedReminderMember(reminder: { assignedTo?: string }): string {
+  return reminder.assignedTo?.trim() || 'Me';
+}
+
+export function filterRemindersByMember<T extends { assignedTo?: string }>(
+  reminders: T[],
+  memberName: string,
+): T[] {
+  return reminders.filter((r) => assignedReminderMember(r) === memberName);
+}
+
 export async function loadVaultWithMeta(items: UserMedicine[]): Promise<VaultItemWithMeta[]> {
   return Promise.all(
     items.map(async (item) => ({
