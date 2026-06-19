@@ -98,10 +98,18 @@ function buildRuntimeTokens(settings: AppSettings, systemScheme: ColorSchemeName
     Object.entries(themeTokens.fontSizes).map(([key, value]) => [key, Math.round(value * fontScale)]),
   );
 
+  const runtimeBrandGradientStops: readonly [string, string, string, string] = [
+    blendOver('#FFFFFF', accent, 0.55),
+    blendOver('#FFFFFF', accent, 0.25),
+    blendOver(accent, accentDeep, 0.35),
+    accentDeep,
+  ];
+
   return {
     ...themeTokens,
     colors: runtimeColors,
     fontSizes: runtimeFontSizes,
+    brandGradientStops: runtimeBrandGradientStops,
   } as ThemeTokens;
 }
 

@@ -137,6 +137,9 @@ export const layout = {
   hitTargetMin: 44,
 } as const;
 
+/** Default Figma logo radial gradient (node 11:28) at accent #118779 */
+export const brandGradientStops = ['#52BCB9', '#31A299', '#219489', '#118779'] as const;
+
 export type ThemeTokens = {
   colors: typeof colors;
   fonts: typeof fonts;
@@ -147,6 +150,7 @@ export type ThemeTokens = {
   elevation: typeof elevation;
   duration: typeof duration;
   layout: typeof layout;
+  brandGradientStops: readonly [string, string, string, string];
 };
 
 export const themeTokens: ThemeTokens = {
@@ -159,4 +163,5 @@ export const themeTokens: ThemeTokens = {
   elevation,
   duration,
   layout,
+  brandGradientStops,
 };

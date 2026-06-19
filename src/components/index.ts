@@ -1,4 +1,5 @@
 export { AppBar } from './AppBar';
+export { BrandMark } from './BrandMark';
 export { Button } from './Button';
 export { Card } from './Card';
 export { ConfidenceMeter } from './ConfidenceMeter';

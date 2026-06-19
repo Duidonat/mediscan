@@ -217,7 +217,7 @@ export function HomeScreen() {
     <Screen>
       <AppBar
         showLogo
-        subtitle="Scan. Identify. Save. Stay Safe."
+        subtitle="Scan. Identify. Save."
         rightAction={
           <View style={{ flexDirection: 'row', gap: spacing.sm }}>
             <Pressable
@@ -233,7 +233,7 @@ export function HomeScreen() {
       <View style={{ gap: spacing.lg }}>
         <View>
           <Text style={{ fontFamily: fonts.display, fontSize: fontSizes.xl, color: colors.text }}>
-            Hello, there! 👋
+            Hello there!
           </Text>
           <Text
             style={{

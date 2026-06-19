@@ -3,6 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme/ThemeProvider';
+import { BrandMark } from './BrandMark';
 
 type AppBarProps = {
   title?: string;
@@ -76,15 +77,18 @@ export function AppBar({
         ) : null}
 
         {showLogo ? (
-          <View>
-            <Text style={{ fontFamily: fonts.display, fontSize: fontSizes.lg, color: colors.brandDeep }}>
-              MediScan Vault
-            </Text>
-            {subtitle ? (
-              <Text style={{ fontFamily: fonts.body, fontSize: fontSizes.xs, color: colors.textMuted }}>
-                {subtitle}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
+            <BrandMark size={40} accessibilityLabel="Mediscan logo" />
+            <View>
+              <Text style={{ fontFamily: fonts.display, fontSize: fontSizes.lg, color: colors.brandDeep }}>
+                Mediscan
               </Text>
-            ) : null}
+              {subtitle ? (
+                <Text style={{ fontFamily: fonts.body, fontSize: fontSizes.xs, color: colors.textMuted }}>
+                  {subtitle}
+                </Text>
+              ) : null}
+            </View>
           </View>
         ) : title ? (
           <View style={{ flex: 1 }}>
