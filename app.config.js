@@ -28,6 +28,7 @@ version: '1.0.0',
 orientation: 'portrait',
 icon: './assets/icon.png',
 userInterfaceStyle: 'light',
+newArchEnabled: false,
 splash: {
 image: './assets/icon.png',
 backgroundColor: '#118779',

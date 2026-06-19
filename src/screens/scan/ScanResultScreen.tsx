@@ -153,7 +153,7 @@ export function ScanResultScreen({ navigation, route }: StackProps<'ScanResult'>
   };
 
   return (
-    <Screen contentStyle={{ padding: 0 }}>
+    <Screen padded={false} contentStyle={{ padding: 0 }}>
       <AppBar title="Scan Result" showBack onBack={() => navigation.goBack()} />
 
       <View style={{ backgroundColor: banner.bg, padding: spacing.lg, gap: spacing.xs }}>

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../theme/ThemeProvider';
 
 type AppBarProps = {
@@ -14,6 +15,13 @@ type AppBarProps = {
   showLogo?: boolean;
 };
 
+export function isAppBarElement(child: ReactNode): child is React.ReactElement<AppBarProps> {
+  if (!React.isValidElement(child)) return false;
+  if (child.type === AppBar) return true;
+  const type = child.type as { displayName?: string };
+  return type.displayName === 'MediScanAppBar';
+}
+
 export function AppBar({
   title,
   subtitle,
@@ -24,14 +32,18 @@ export function AppBar({
   onMenuPress,
   showLogo,
 }: AppBarProps) {
+  const insets = useSafeAreaInsets();
   const { colors, fonts, fontSizes, spacing, layout } = useTheme();
 
   return (
     <View
       style={{
-        minHeight: layout.headerHeight,
+        alignSelf: 'stretch',
+        width: '100%',
+        minHeight: layout.headerHeight + insets.top,
+        paddingTop: insets.top + spacing.sm,
+        paddingBottom: spacing.sm,
         paddingHorizontal: spacing.md,
-        paddingVertical: spacing.sm,
         backgroundColor: colors.card,
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
@@ -92,3 +104,5 @@ export function AppBar({
     </View>
   );
 }
+
+AppBar.displayName = 'MediScanAppBar';
