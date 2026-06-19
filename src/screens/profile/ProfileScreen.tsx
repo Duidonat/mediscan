@@ -139,6 +139,24 @@ export function ProfileScreen() {
         ) : null}
 
         <FeatureTile
+          title="Family Profiles"
+          description="Manage family members"
+          icon="people-outline"
+          onPress={() => navigation.navigate('FamilyProfiles')}
+        />
+        <FeatureTile
+          title="Medicine Helpdesk"
+          description="Get help and contact support"
+          icon="chatbubble-ellipses-outline"
+          onPress={() => navigation.navigate('Helpdesk')}
+        />
+        <FeatureTile
+          title="Offline Database"
+          description="Update medicine database"
+          icon="library-outline"
+          onPress={() => navigation.navigate('Database')}
+        />
+        <FeatureTile
           title="Appearance"
           description="Customize theme, text size, accent color"
           icon="color-palette-outline"
@@ -156,10 +174,10 @@ export function ProfileScreen() {
           onPress={() => navigation.navigate('SettingsLanguage')}
         />
         <FeatureTile
-          title="Offline Database"
-          description="Update medicine database"
-          icon="library-outline"
-          onPress={() => navigation.navigate('Database')}
+          title="Notifications"
+          description="Manage reminder and alert settings"
+          icon="notifications-outline"
+          onPress={() => navigation.navigate('SettingsNotifications')}
         />
         <FeatureTile
           title="Backup & Restore"
@@ -178,24 +196,6 @@ export function ProfileScreen() {
           description="Manage your privacy settings"
           icon="shield-checkmark-outline"
           onPress={() => showComingSoon('Privacy')}
-        />
-        <FeatureTile
-          title="Notifications"
-          description="Manage reminder and alert settings"
-          icon="notifications-outline"
-          onPress={() => navigation.navigate('SettingsNotifications')}
-        />
-        <FeatureTile
-          title="Family Profiles"
-          description="Manage family members"
-          icon="people-outline"
-          onPress={() => navigation.navigate('FamilyProfiles')}
-        />
-        <FeatureTile
-          title="Help & Support"
-          description="Get help and contact support"
-          icon="chatbubble-ellipses-outline"
-          onPress={() => navigation.navigate('Helpdesk')}
         />
         <FeatureTile
           title="About MediScan Vault"
