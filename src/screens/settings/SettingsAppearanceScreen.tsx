@@ -33,10 +33,8 @@ const ACCENT_COLORS = [
   { id: '#2563EB', label: 'Blue' },
   { id: '#CC3E3C', label: 'Red' },
   { id: '#DC8D11', label: 'Orange' },
-  { id: '#0D9488', label: 'Teal' },
+  { id: '#17C964', label: 'Emerald' },
 ];
-
-const APP_ICONS = ['green', 'purple', 'blue', 'red'] as const;
 
 export function SettingsAppearanceScreen({ navigation }: StackProps<'SettingsAppearance'>) {
   const { colors, fonts, fontSizes, radius, spacing } = useTheme();
@@ -159,45 +157,6 @@ export function SettingsAppearanceScreen({ navigation }: StackProps<'SettingsApp
                   }}
                 >
                   {selected ? <Ionicons name="checkmark" size={20} color={colors.textInverse} /> : null}
-                </Pressable>
-              );
-            })}
-          </View>
-        </Card>
-
-        <Card style={{ marginBottom: 0 }}>
-          <Text style={{ fontFamily: fonts.displayMedium, fontSize: fontSizes.md, color: colors.text, marginBottom: spacing.sm }}>
-            App Icon
-          </Text>
-          <View style={{ flexDirection: 'row', gap: spacing.sm }}>
-            {APP_ICONS.map((iconId) => {
-              const selected = settings?.appIcon === iconId;
-              const bg =
-                iconId === 'green'
-                  ? colors.brand
-                  : iconId === 'purple'
-                    ? '#7B61FF'
-                    : iconId === 'blue'
-                      ? '#2563EB'
-                      : colors.danger;
-              return (
-                <Pressable
-                  key={iconId}
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
-                  onPress={() => patch({ appIcon: iconId })}
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: radius.lg,
-                    backgroundColor: bg,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderWidth: selected ? 3 : 0,
-                    borderColor: colors.text,
-                  }}
-                >
-                  <Ionicons name="medical-outline" size={24} color={colors.textInverse} />
                 </Pressable>
               );
             })}

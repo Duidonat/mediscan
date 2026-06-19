@@ -12,7 +12,6 @@ export type AppSettings = {
   theme: ThemeMode;
   textSize: TextSize;
   accentColor: string;
-  appIcon: string;
   language: string;
   notifications: {
     expiryAlerts: boolean;
@@ -29,7 +28,6 @@ export const DEFAULT_SETTINGS: AppSettings = {
   theme: 'light',
   textSize: 'medium',
   accentColor: '#118779',
-  appIcon: 'green',
   language: 'English',
   notifications: {
     expiryAlerts: true,
