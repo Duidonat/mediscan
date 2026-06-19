@@ -156,6 +156,7 @@ function InfoRow({ icon, label, value, danger }: InfoRowProps) {
     <View
       style={{
         flexDirection: 'row',
+        alignItems: 'center',
         gap: spacing.md,
         paddingVertical: spacing.sm,
         borderBottomWidth: 1,
