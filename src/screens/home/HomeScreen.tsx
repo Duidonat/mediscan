@@ -300,20 +300,20 @@ export function HomeScreen() {
                 onViewAll={() => navigation.navigate('MainTabs', { screen: 'Vault' })}
               />
               <View style={{ flexDirection: 'row', gap: spacing.sm }}>
-                <StatCard label="Total" value={stats.total} tone="brand" icon="shield-outline" />
-                <StatCard label="Verified" value={stats.verified} tone="success" icon="checkmark-circle-outline" />
-              </View>
-              <View style={{ flexDirection: 'row', gap: spacing.sm, marginTop: spacing.sm }}>
+                <StatCard compact label="Total Medicines" value={stats.total} tone="brand" icon="shield-outline" />
+                <StatCard compact label="Verified" value={stats.verified} tone="success" icon="checkmark-circle-outline" />
                 <StatCard
+                  compact
                   label="Needs Verification"
                   value={stats.needsVerification}
                   tone="warning"
                   icon="alert-circle-outline"
                 />
                 <StatCard
+                  compact
                   label="Expiring Soon"
                   value={stats.expiringSoon}
-                  tone="warning"
+                  tone="danger"
                   icon="calendar-outline"
                 />
               </View>

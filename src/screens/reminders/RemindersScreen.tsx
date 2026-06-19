@@ -230,12 +230,10 @@ export function RemindersScreen() {
       ) : (
         <View style={{ gap: spacing.lg }}>
           <View style={{ flexDirection: 'row', gap: spacing.sm }}>
-            <StatCard label="Expired" value={expiredItems.length} tone="danger" icon="close-circle-outline" />
-            <StatCard label="Expiring Soon" value={expiringSoonItems.length} tone="warning" icon="time-outline" />
-          </View>
-          <View style={{ flexDirection: 'row', gap: spacing.sm }}>
-            <StatCard label="Reminders Today" value={remindersToday} tone="brand" icon="today-outline" />
-            <StatCard label="Total Reminders" value={totalReminders} tone="info" icon="notifications-outline" />
+            <StatCard compact label="Expired" value={expiredItems.length} tone="danger" icon="close-circle-outline" />
+            <StatCard compact label="Expiring Soon" value={expiringSoonItems.length} tone="warning" icon="time-outline" />
+            <StatCard compact label="Reminders Today" value={remindersToday} tone="brand" icon="today-outline" />
+            <StatCard compact label="Total Reminders" value={totalReminders} tone="info" icon="notifications-outline" />
           </View>
 
           {expiringSoonItems.length > 0 ? (

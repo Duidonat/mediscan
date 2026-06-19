@@ -195,15 +195,17 @@ export function FamilyMemberScreen({ navigation, route }: StackProps<'FamilyMemb
           </View>
         </Card>
 
-        <View>
-          <View style={{ flexDirection: 'row', gap: spacing.sm }}>
-            <StatCard label="Total" value={stats.total} tone="info" icon="medkit-outline" />
-            <StatCard label="Verified" value={stats.verified} tone="success" icon="checkmark-circle-outline" />
-          </View>
-          <View style={{ flexDirection: 'row', gap: spacing.sm, marginTop: spacing.sm }}>
-            <StatCard label="Needs Verification" value={stats.needsVerification} tone="warning" icon="alert-circle-outline" />
-            <StatCard label="Expiring Soon" value={stats.expiringSoon} tone="warning" icon="calendar-outline" />
-          </View>
+        <View style={{ flexDirection: 'row', gap: spacing.sm }}>
+          <StatCard compact label="Total" value={stats.total} tone="info" icon="medkit-outline" />
+          <StatCard compact label="Verified" value={stats.verified} tone="success" icon="checkmark-circle-outline" />
+          <StatCard
+            compact
+            label="Needs Verification"
+            value={stats.needsVerification}
+            tone="warning"
+            icon="alert-circle-outline"
+          />
+          <StatCard compact label="Expiring Soon" value={stats.expiringSoon} tone="warning" icon="calendar-outline" />
         </View>
 
         <View>
