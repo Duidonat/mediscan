@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, ImageSourcePropType, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { PillIcon } from './PillIcon';
 import { StatusBadge } from './StatusBadge';
 import { ScanStatus } from '../types/Medicine';
 import { useTheme } from '../theme/ThemeProvider';
@@ -66,7 +67,7 @@ export function MedicineListItem({
         {imageSource ? (
           <Image source={imageSource} style={{ width: 56, height: 56 }} resizeMode="cover" />
         ) : (
-          <Ionicons name="medkit-outline" size={24} color={colors.brandDeep} />
+          <PillIcon size={26} color={colors.brandDeep} />
         )}
       </View>
 

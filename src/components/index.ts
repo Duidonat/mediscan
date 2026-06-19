@@ -8,6 +8,7 @@ export { EmptyState } from './EmptyState';
 export { FeatureTile } from './FeatureTile';
 export { FilterChips } from './FilterChips';
 export { MedicineListItem } from './MedicineListItem';
+export { PillIcon } from './PillIcon';
 export { Screen } from './Screen';
 export { SearchBar } from './SearchBar';
 export { StatCard } from './StatCard';

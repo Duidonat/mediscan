@@ -6,6 +6,7 @@ import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
 import { FilterChips } from '../../components/FilterChips';
+import { PillIcon } from '../../components/PillIcon';
 import { Screen } from '../../components/Screen';
 import { getFamilyMembers } from '../../services/familyStore';
 import {
@@ -192,7 +193,7 @@ export function AddReminderScreen({ navigation, route }: StackProps<'AddReminder
                       backgroundColor: selected ? colors.brandLight : colors.card,
                     }}
                   >
-                    <Ionicons name="medkit-outline" size={18} color={colors.brandDeep} />
+                    <PillIcon size={18} color={colors.brandDeep} />
                     <View style={{ flex: 1 }}>
                       <Text style={{ fontFamily: fonts.bodySemibold, fontSize: fontSizes.sm, color: colors.text }}>
                         {item.displayName}

@@ -7,6 +7,7 @@ import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
 import { MedicineListItem } from '../../components/MedicineListItem';
+import { PillIcon } from '../../components/PillIcon';
 import { Screen } from '../../components/Screen';
 import { StatCard } from '../../components/StatCard';
 import { FamilyMember, getFamilyMember, updateFamilyMember } from '../../services/familyStore';
@@ -196,7 +197,13 @@ export function FamilyMemberScreen({ navigation, route }: StackProps<'FamilyMemb
         </Card>
 
         <View style={{ flexDirection: 'row', gap: spacing.sm }}>
-          <StatCard compact label="Total" value={stats.total} tone="info" icon="medkit-outline" />
+          <StatCard
+            compact
+            label="Total"
+            value={stats.total}
+            tone="info"
+            iconNode={<PillIcon size={16} color={colors.info} />}
+          />
           <StatCard compact label="Verified" value={stats.verified} tone="success" icon="checkmark-circle-outline" />
           <StatCard
             compact

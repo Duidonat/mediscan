@@ -7,11 +7,12 @@ type FeatureTileProps = {
   title: string;
   description: string;
   icon?: keyof typeof Ionicons.glyphMap;
+  iconNode?: ReactNode;
   onPress?: () => void;
   trailing?: ReactNode;
 };
 
-export function FeatureTile({ title, description, icon, onPress, trailing }: FeatureTileProps) {
+export function FeatureTile({ title, description, icon, iconNode, onPress, trailing }: FeatureTileProps) {
   const { colors, fonts, fontSizes, radius, spacing, elevation } = useTheme();
 
   return (
@@ -35,7 +36,7 @@ export function FeatureTile({ title, description, icon, onPress, trailing }: Fea
         elevation.sm,
       ]}
     >
-      {icon ? (
+      {iconNode || icon ? (
         <View
           style={{
             width: 48,
@@ -46,7 +47,7 @@ export function FeatureTile({ title, description, icon, onPress, trailing }: Fea
             justifyContent: 'center',
           }}
         >
-          <Ionicons name={icon} size={24} color={colors.brandDeep} />
+          {iconNode ?? <Ionicons name={icon!} size={24} color={colors.brandDeep} />}
         </View>
       ) : null}
       <View style={{ flex: 1 }}>

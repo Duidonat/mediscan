@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { FeatureTile } from '../../components/FeatureTile';
+import { PillIcon } from '../../components/PillIcon';
 import { demoSamples, DemoSample } from '../../data/demoSamples';
 import { RootStackParamList } from '../../navigation/types';
 import { runDemoScan, runManualTextScan } from '../../services/scanPipeline';
@@ -15,14 +16,15 @@ type ScanTypeOption = {
   source: ScanSource;
   title: string;
   description: string;
-  icon: keyof typeof Ionicons.glyphMap;
+  icon?: keyof typeof Ionicons.glyphMap;
+  iconNode?: React.ReactNode;
 };
 
 const SCAN_TYPES: ScanTypeOption[] = [
   { source: 'label', title: 'Label / Box', description: 'Scan the medicine label or outer box', icon: 'document-text-outline' },
   { source: 'blister', title: 'Blister Pack', description: 'Scan blister pack text and markings', icon: 'grid-outline' },
   { source: 'barcode', title: 'Barcode', description: 'Scan the product barcode', icon: 'barcode-outline' },
-  { source: 'pill', title: 'Pill / Capsule', description: 'Identify by pill appearance only', icon: 'medical-outline' },
+  { source: 'pill', title: 'Pill / Capsule', description: 'Identify by pill appearance only' },
 ];
 
 type Props = {
@@ -76,6 +78,9 @@ export function ChooseScanTypeContent({ navigation }: Props) {
             title={option.title}
             description={option.description}
             icon={option.icon}
+            iconNode={
+              option.source === 'pill' ? <PillIcon size={26} color={colors.brandDeep} /> : option.iconNode
+            }
             onPress={() => navigation.navigate('CameraCapture', { scanType: option.source })}
           />
         ))}

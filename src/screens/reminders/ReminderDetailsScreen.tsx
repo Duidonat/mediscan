@@ -5,6 +5,7 @@ import { AppBar } from '../../components/AppBar';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
+import { PillIcon } from '../../components/PillIcon';
 import { Screen } from '../../components/Screen';
 import { StatusBadge } from '../../components/StatusBadge';
 import { deleteReminder, getReminder } from '../../services/remindersStore';
@@ -162,7 +163,7 @@ export function ReminderDetailsScreen({ navigation, route }: StackProps<'Reminde
               {imageSource ? (
                 <Image source={imageSource} style={{ width: 80, height: 80 }} resizeMode="cover" />
               ) : (
-                <Ionicons name="medkit-outline" size={32} color={colors.brandDeep} />
+                <PillIcon size={36} color={colors.brandDeep} />
               )}
             </View>
             <View style={{ flex: 1, gap: spacing.xs }}>

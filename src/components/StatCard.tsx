@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../theme/ThemeProvider';
@@ -8,10 +8,11 @@ type StatCardProps = {
   value: number | string;
   tone?: 'brand' | 'success' | 'warning' | 'danger' | 'info';
   icon?: keyof typeof Ionicons.glyphMap;
+  iconNode?: ReactNode;
   compact?: boolean;
 };
 
-export function StatCard({ label, value, tone = 'brand', icon, compact = false }: StatCardProps) {
+export function StatCard({ label, value, tone = 'brand', icon, iconNode, compact = false }: StatCardProps) {
   const { colors, fonts, fontSizes, radius, spacing, elevation } = useTheme();
 
   const toneColors = {
@@ -39,7 +40,9 @@ export function StatCard({ label, value, tone = 'brand', icon, compact = false }
         elevation.sm,
       ]}
     >
-      {icon ? (
+      {iconNode ? (
+        <View style={{ marginBottom: spacing.xs }}>{iconNode}</View>
+      ) : icon ? (
         <Ionicons
           name={icon}
           size={compact ? 16 : 18}

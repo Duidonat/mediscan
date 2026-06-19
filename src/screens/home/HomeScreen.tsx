@@ -8,6 +8,7 @@ import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { EmptyState } from '../../components/EmptyState';
 import { MedicineListItem } from '../../components/MedicineListItem';
+import { PillIcon } from '../../components/PillIcon';
 import { Screen } from '../../components/Screen';
 import { StatCard } from '../../components/StatCard';
 import { RootStackParamList } from '../../navigation/types';
@@ -275,7 +276,7 @@ export function HomeScreen() {
                 justifyContent: 'center',
               }}
             >
-              <Ionicons name="medical-outline" size={36} color={colors.brand} />
+              <PillIcon size={40} color={colors.brand} />
             </View>
           </View>
         </Card>

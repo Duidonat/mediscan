@@ -18,6 +18,7 @@ import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { ConfidenceMeter } from '../../components/ConfidenceMeter';
 import { EmptyState } from '../../components/EmptyState';
+import { PillIcon } from '../../components/PillIcon';
 import { Screen } from '../../components/Screen';
 import { StatusBadge } from '../../components/StatusBadge';
 import { getAllMedicineReferences } from '../../services/medicineMatcher';
@@ -142,15 +143,17 @@ function buildShareText(details: DetailsViewModel): string {
 }
 
 type InfoRowProps = {
-  icon: keyof typeof Ionicons.glyphMap;
+  icon?: keyof typeof Ionicons.glyphMap;
+  iconNode?: React.ReactNode;
   label: string;
   value?: string;
   danger?: boolean;
 };
 
-function InfoRow({ icon, label, value, danger }: InfoRowProps) {
+function InfoRow({ icon, iconNode, label, value, danger }: InfoRowProps) {
   const { colors, fonts, fontSizes, spacing } = useTheme();
   const display = displayValue(value);
+  const iconColor = danger ? colors.danger : colors.brandDeep;
 
   return (
     <View
@@ -163,7 +166,7 @@ function InfoRow({ icon, label, value, danger }: InfoRowProps) {
         borderBottomColor: colors.border,
       }}
     >
-      <Ionicons name={icon} size={20} color={danger ? colors.danger : colors.brandDeep} />
+      {iconNode ?? (icon ? <Ionicons name={icon} size={20} color={iconColor} /> : null)}
       <View style={{ flex: 1, gap: 2 }}>
         <Text style={{ fontFamily: fonts.bodyMedium, fontSize: fontSizes.xs, color: colors.textMuted }}>
           {label}
@@ -442,7 +445,7 @@ export function MedicineDetailsScreen({ navigation, route }: StackProps<'Medicin
               {imageSource ? (
                 <Image source={imageSource} style={{ width: 80, height: 80 }} resizeMode="cover" />
               ) : (
-                <Ionicons name="medkit-outline" size={32} color={colors.brandDeep} />
+                <PillIcon size={36} color={colors.brandDeep} />
               )}
             </View>
             <View style={{ flex: 1, gap: spacing.xs }}>
@@ -511,7 +514,7 @@ export function MedicineDetailsScreen({ navigation, route }: StackProps<'Medicin
                 }}
               >
                 <InfoRow icon="flask-outline" label="Generic" value={details.genericName} />
-                <InfoRow icon="medical-outline" label="Type" value={details.dosageForm} />
+                <InfoRow iconNode={<PillIcon size={20} color={colors.brandDeep} />} label="Type" value={details.dosageForm} />
                 <InfoRow icon="scale-outline" label="Strength" value={details.strength} />
                 <InfoRow icon="grid-outline" label="Category" value={details.category} />
                 <InfoRow icon="heart-outline" label="Common Uses" value={details.commonUses} />
