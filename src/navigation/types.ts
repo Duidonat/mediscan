@@ -15,7 +15,7 @@ export type RootStackParamList = {
   CameraCapture: { scanType: ScanSource };
   ScanResult: { scanResult: ScanResult };
   MedicineDetails: { userMedicineId?: string; scanResult?: ScanResult };
-  AddReminder: undefined;
+  AddReminder: { reminderId?: string } | undefined;
   ReminderDetails: { reminderId: string };
   FamilyProfiles: undefined;
   FamilyMember: { memberId: string };

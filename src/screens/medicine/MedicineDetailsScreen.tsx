@@ -18,6 +18,7 @@ import { EmptyState } from '../../components/EmptyState';
 import { Screen } from '../../components/Screen';
 import { StatusBadge } from '../../components/StatusBadge';
 import { getAllMedicineReferences } from '../../services/medicineMatcher';
+import { getFamilyMembers } from '../../services/familyStore';
 import { getMedicineMeta, setMedicineMeta } from '../../services/medicineMetaStore';
 import { deleteVaultItem, getVaultItems, saveScanToVault } from '../../services/vaultStorage';
 import { useTheme } from '../../theme/ThemeProvider';
@@ -58,8 +59,6 @@ const SCAN_SOURCE_LABELS: Record<ScanSource, string> = {
   manual: 'manual entry',
   photo: 'photo',
 };
-
-const FAMILY_OPTIONS = ['Me'] as const;
 
 function displayValue(value?: string): string {
   return value?.trim() ? value.trim() : 'Not detected';
@@ -190,6 +189,7 @@ export function MedicineDetailsScreen({ navigation, route }: StackProps<'Medicin
   const [tagInput, setTagInput] = useState('');
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [familyOptions, setFamilyOptions] = useState<string[]>(['Me']);
 
   const notesInputRef = useRef<TextInput>(null);
   const isSaved = Boolean(savedId);
@@ -242,6 +242,10 @@ export function MedicineDetailsScreen({ navigation, route }: StackProps<'Medicin
       loadVaultItem();
     }
   }, [paramId, loadVaultItem]);
+
+  useEffect(() => {
+    getFamilyMembers().then((members) => setFamilyOptions(members.map((m) => m.name)));
+  }, []);
 
   const persistMeta = useCallback(
     async (id: string, patch: { notes?: string; tags?: string[]; assignedTo?: string }) => {
@@ -364,9 +368,8 @@ export function MedicineDetailsScreen({ navigation, route }: StackProps<'Medicin
     );
   }
 
-  const familyOptions = assignedTo && !FAMILY_OPTIONS.includes(assignedTo as (typeof FAMILY_OPTIONS)[number])
-    ? [assignedTo, ...FAMILY_OPTIONS]
-    : [...FAMILY_OPTIONS];
+  const assignOptions =
+    assignedTo && !familyOptions.includes(assignedTo) ? [assignedTo, ...familyOptions] : familyOptions;
 
   return (
     <Screen padded={false} contentStyle={{ padding: 0 }}>
@@ -526,7 +529,7 @@ export function MedicineDetailsScreen({ navigation, route }: StackProps<'Medicin
             Assigned to
           </Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
-            {familyOptions.map((member) => {
+            {assignOptions.map((member) => {
               const selected = assignedTo === member;
               return (
                 <Pressable

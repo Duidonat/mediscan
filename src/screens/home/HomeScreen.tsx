@@ -162,7 +162,9 @@ export function HomeScreen() {
                 width: 72,
                 height: 72,
                 borderRadius: radius.lg,
-                backgroundColor: colors.card,
+                backgroundColor: 'transparent',
+                borderWidth: 1,
+                borderColor: colors.brand,
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
