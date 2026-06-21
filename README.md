@@ -170,16 +170,158 @@ For production, gather and implement:
 
 ```bash
 npm install
-npm run typecheck
-npm run android
 ```
 
-For QVAC native setup and platform-specific details, see:
+### 2. Generate the Android native folder
 
-- `docs/QVAC_REAL_OCR_SETUP.md`
-- `docs/WINDOWS_QVAC_ECOMPROMISED_FIX.md` (Windows lock-compromised fix guide)
+```bash
+npx expo prebuild --clean --platform android
+```
 
----
+### 3. Add Android SDK path
+
+Create a file named:
+
+```text
+android/local.properties
+```
+
+Then add your Android SDK path.
+
+For Windows example:
+
+```properties
+sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk
+```
+
+You can also create it using CMD:
+
+```bat
+(echo sdk.dir=C:/Users/YourName/AppData/Local/Android/Sdk)>android\local.properties
+```
+
+Do not upload `android/local.properties` to GitHub because the SDK path is different for every computer.
+
+### 4. Generate React Native Codegen files
+
+QVAC and BareKit use native React Native modules. Before building, generate the required Codegen/CMake files:
+
+```bat
+cd android
+gradlew.bat :app:generateCodegenArtifactsFromSchema --rerun-tasks
+cd ..
+```
+
+After running Codegen, check if these folders exist:
+
+```bat
+dir "node_modules\@react-native-async-storage\async-storage\android\build\generated\source\codegen\jni"
+dir "node_modules\react-native-bare-kit\android\build\generated\source\codegen\jni"
+```
+
+Both folders should contain a `CMakeLists.txt` file.
+
+If they do not exist, run the available Codegen tasks manually:
+
+```bat
+cd android
+gradlew.bat tasks --all | findstr /i codegen
+```
+
+Then run the matching tasks shown in the terminal. Common examples are:
+
+```bat
+gradlew.bat :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema --rerun-tasks
+gradlew.bat :react-native-bare-kit:generateCodegenArtifactsFromSchema --rerun-tasks
+cd ..
+```
+
+### 5. Connect your Android phone
+
+Enable USB debugging on your physical Android device, then check if ADB detects it:
+
+```bat
+adb devices
+```
+
+Expected result:
+
+```text
+YOUR_DEVICE_ID    device
+```
+
+QVAC should be tested on a physical Android device. Emulator testing may not work properly for QVAC native inference.
+
+### 6. Run the app
+
+```bash
+npx expo run:android --device
+```
+
+If `npx` hangs, use the local Expo CLI instead:
+
+```bat
+node node_modules\expo\bin\cli run:android --device
+```
+
+## Running Without QVAC
+
+Use this mode if you only want to test the UI, database, vault, and manual text scan.
+
+```bash
+npx expo run:android --device
+```
+
+## Running With QVAC
+
+Make sure your physical Android phone is connected and detected:
+
+```bat
+adb devices
+```
+
+Expected output:
+
+```text
+YOUR_DEVICE_ID    device
+```
+
+Then run:
+
+```bash
+npx expo run:android --device
+```
+
+If Metro is already running and you only changed TypeScript files, restart Metro:
+
+```bash
+npx expo start --clear
+```
+
+## Testing QVAC
+
+Use a clear image with large medicine text, such as:
+
+```text
+PARACETAMOL 500 mg TABLET
+EXP 08/2026
+```
+
+A successful scan should show extracted OCR text and should not show:
+
+```text
+AI path: qvac-unavailable
+```
+
+A successful QVAC run should show something like:
+
+```text
+AI path: real-qvac
+```
+
+## Project Purpose
+
+MediScan Vault helps users organize and understand medicines they already have at home. It supports offline medicine scanning, basic verification status, expiration awareness, and personal medicine storage.
 
 ## Disclaimer
 
